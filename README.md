@@ -57,7 +57,7 @@ messing around.
   commit, it will not respect `--branch` and take you to the repository tree at
   that branch. :/
 
-- [x] Make a change in the submodule repository and verify pulling it in the main repository
+- [ ] Make a change in the submodule repository and verify pulling it in the main repository after adding submodule
 
   ```sh
   git submodule update --remote
@@ -73,15 +73,44 @@ messing around.
   Although multiple pulls in a row seem to work…
   I wonder if this is just how Git displays things but it is still tracking?
 
-- [ ] Make a change in the submodule directory and verify pushing it to the submodule repository
+  I can't consider this to be done yet until it doesn't break push after the
+  pull.
+
+- [ ] Make a change in the submodule directory and verify pushing it to the submodule repository after adding submodule
+
+  Since with the initial pull and then an attempt at a push I am running into
+  issues I would like to try and see if pushing right after adding the module
+  with tracking will work?
+
+  I will reset the state of the repository by removing the module completely and
+  will try the push first.
+
+- [ ] Make a change in the submodule repository and verify pulling it in the main repository after pushing first
+
+  This is dependent on the above step working and most likely will itself work
+  but again wipe the state of the tracking.
+
+- [ ] Make a change in the submodule directory and verify pushing it to the submodule repository after pulling first
 
   ```sh
-  cs sub
-  echo "- Added a change to the submodule directory for push to the repository"
+  cd sub
+  git status
+  # HEAD detached at ??????
+  echo "- Added a change to the submodule directory for push to the repository" >> README.md
   git add *
   git status
+  # modified:   README.md
   git commit -m "Made a change from the submodule directory in the main repository" -m "Not in the submodule repository!"
+  # 1 file changed, 1 insertion(+)
+  git status
+  # HEAD detached from ??????
+  # nothing to commit, working tree clean
   git push
+  # fatal: You are not currently on a branch.
+  # To push the history leading to the current (detached HEAD) state now, use
+  # git push origin HEAD:<name-of-remote-branch>
+
+  # TODO:
   git status
   cd ..
   git submodule update --remote
