@@ -53,11 +53,23 @@ messing around.
   `git config --file .gitmodules  --remove-section submodule.sub` can be used if
   wanting to remove a single of multiple submodules instead of nuking the file.
 
+  In GitHub, the submodule "directory" will still link to the tree of the given
+  commit, it will not respect `--branch` and take you to the repository tree at
+  that branch. :/
+
 - [ ] Make a change in the submodule repository and verify pulling it in the main repository
 
   ```sh
   git submodule update --remote
+  git status
+  # modified:   sub (new commits)
+  cd sub
+  git status
+  # HEAD detached at
   ```
+
+  I was able to pull the changes but it looks like it broke the remote branch
+  tracking of the submodule?
 
 - [ ] Make a change in the submodule directory and verify pushing it to the submodule repository
 
