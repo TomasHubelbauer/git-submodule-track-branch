@@ -65,11 +65,13 @@ messing around.
   # modified:   sub (new commits)
   cd sub
   git status
-  # HEAD detached at
+  # HEAD detached at ??????
   ```
 
   I was able to pull the changes but it looks like it broke the remote branch
   tracking of the submodule?
+  Although multiple pulls in a row seem to work…
+  I wonder if this is just how Git displays things but it is still tracking?
 
 - [ ] Make a change in the submodule directory and verify pushing it to the submodule repository
 
