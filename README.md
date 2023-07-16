@@ -22,12 +22,36 @@ messing around.
 - [x] Add the submodule repository to the main repository
 
   ```sh
-  git submodule add https://github.com/TomasHubelbauer/git-submodule-track-branch-sub sub --branch .
+  git submodule add --branch main https://github.com/TomasHubelbauer/git-submodule-track-branch-sub sub
+  cd sub
+  git status
+  # On branch main
+  # Your branch is up to date with 'origin/main'.
+  cd ..
   ```
 
-  Note that `git submodule set-branch` can be used instead of `--branch` later.
-  Also note that `.` is a special name which makes the submodule trach a branch
-  by the same name as the branch name of the main repository is.
+  `git submodule set-branch` can be used instead of `--branch` in a later stage.
+
+  `.` is a special value for `--branch` which should make the submodule track a
+  branch by the same name as the branch of the main repository, but I was not
+  able to make this work in Git 2.39 on macOS:
+
+  > fatal: 'origin/.' is not a commit and a branch '.' cannot be created from it
+
+  If anything goes wrong in this step, this is how adding the submodule can be
+  fully undone to try again with a clean slate:
+
+  ```sh
+  git rm -f .gitmodules
+  git rm -f sub
+  rm -rf .git/modules/sub
+  # .git/config
+  git config --remove-section submodule.sub
+  ```
+
+  `-f` is used to delete the path regardless of whether it has unstaged changes.
+  `git config --file .gitmodules  --remove-section submodule.sub` can be used if
+  wanting to remove a single of multiple submodules instead of nuking the file.
 
 - [ ] Make a change in the submodule repository and verify pulling it in the main repository
 
