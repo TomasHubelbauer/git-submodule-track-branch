@@ -57,7 +57,7 @@ messing around.
   commit, it will not respect `--branch` and take you to the repository tree at
   that branch. :/
 
-- [ ] Make a change in the submodule repository and verify pulling it in the main repository
+- [x] Make a change in the submodule repository and verify pulling it in the main repository
 
   ```sh
   git submodule update --remote
